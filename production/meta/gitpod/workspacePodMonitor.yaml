@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  labels:
+    app.kubernetes.io/name: gitpod
+    app.kubernetes.io/part-of: kube-prometheus
+  name: workspace
+  namespace: monitoring-satellite
+spec:
+  namespaceSelector:
+    matchNames:
+    - default
+  podMetricsEndpoints:
+  - interval: 60s
+    metricRelabelings:
+    - action: keep
+      regex: gitpod_(.*)
+      sourceLabels:
+      - __name__
+    port: supervisor
+    scrapeTimeout: 5s
+  selector:
+    matchLabels:
+      component: workspace
+      workspaceType: regular

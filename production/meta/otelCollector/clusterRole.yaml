@@ -1,0 +1,16 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: otel-collector
+    app.kubernetes.io/part-of: kube-prometheus
+  name: otel-collector
+rules:
+- apiGroups:
+  - policy
+  resourceNames:
+  - otel-collector
+  resources:
+  - podsecuritypolicies
+  verbs:
+  - use

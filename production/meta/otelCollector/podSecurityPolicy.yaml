@@ -1,0 +1,19 @@
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  labels:
+    app.kubernetes.io/name: otel-collector
+    app.kubernetes.io/part-of: kube-prometheus
+  name: otel-collector
+spec:
+  fsGroup:
+    rule: RunAsAny
+  privileged: false
+  runAsUser:
+    rule: RunAsAny
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  volumes:
+  - '*'

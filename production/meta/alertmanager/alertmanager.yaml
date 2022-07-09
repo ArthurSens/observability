@@ -1,0 +1,31 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Alertmanager
+metadata:
+  labels:
+    app.kubernetes.io/name: alertmanager
+    app.kubernetes.io/part-of: monitoring-satellite
+    app.kubernetes.io/version: 0.24.0
+  name: main
+  namespace: monitoring-satellite
+spec:
+  image: quay.io/prometheus/alertmanager:v0.24.0
+  nodeSelector:
+    gitpod.io/workload_services: "true"
+    kubernetes.io/os: linux
+  podMetadata:
+    labels:
+      app.kubernetes.io/name: alertmanager
+      app.kubernetes.io/part-of: monitoring-satellite
+      app.kubernetes.io/version: 0.24.0
+  replicas: 1
+  resources:
+    limits: {}
+    requests:
+      cpu: 4m
+      memory: 100Mi
+  securityContext:
+    fsGroup: 2000
+    runAsNonRoot: true
+    runAsUser: 1000
+  serviceAccountName: alertmanager-main
+  version: 0.24.0
