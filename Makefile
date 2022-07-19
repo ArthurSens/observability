@@ -7,5 +7,9 @@ kubescape:
 	kubescape scan -s framework -v -t $(KUBESCAPE_THRESHOLD) nsa manifests/*.yaml
 
 .PHONY: promtool-lint
-promtool-lint: 
-	promtool version
+promtool-lint: promrules.yml
+	promtool check rules promrules.yml
+
+.PHONY: promrules.yml
+promrules.yml:
+	scripts/extract-promrules.sh

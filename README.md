@@ -2,10 +2,21 @@
 
 Repository used to host a set of YAML files to be used as source of truth for our observability stack deployed in several environments.
 
+## Linters
+
+### Prometheus alerts and recording rules
+
+You can verify if alerting rules are valid by running.
+
+```
+make promtool-lint
+```
+
+For every `PrometheusRule` YAML file inside the `manifest` folder, it will extract all the rules and run `promtool check rules` against it.
+
 ## CI Roadmap
 
 * Linters
-    * Prometheus rules
     * Alertmanager config
     * YAML
 * Enforcers
