@@ -4,7 +4,7 @@ all: kubescape promtool-lint
 
 .PHONY: kubescape
 kubescape: 
-	kubescape scan -s framework -t $(KUBESCAPE_THRESHOLD) nsa manifests/*.yaml
+	kubescape scan -s framework -v -t $(KUBESCAPE_THRESHOLD) nsa manifests/*.yaml
 
 .PHONY: promtool-lint
 promtool-lint: 
