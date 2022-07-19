@@ -1,0 +1,21 @@
+name: linters
+on:
+  - push
+env:
+  golang-version: "1.16"
+
+
+jobs:
+  promtool-lint:
+    runs-on: ubuntu-latest
+    name: Prometheus alerts and recording rules linter
+    steps:
+      - uses: actions/checkout@v2
+      - run: make --always-make promrules.yml
+      - name: Check Prometheus alert rules
+        uses: peimanja/promtool-github-actions@master
+        with:
+          promtool_actions_subcommand: "rules"
+          promtool_actions_files: "promrules.yml"
+          promtool_actions_comment: true
+          promtool_actions_version: "2.36.0"
