@@ -2,7 +2,7 @@ name: linters
 on:
   - push
 env:
-  golang-version: "1.16"
+  promtoolVersion: "2.36.0"
 
 
 jobs:
@@ -11,11 +11,29 @@ jobs:
     name: Prometheus alerts and recording rules linter
     steps:
       - uses: actions/checkout@v2
-      - run: make --always-make promrules.yml
-      - name: Check Prometheus alert rules
-        uses: peimanja/promtool-github-actions@master
-        with:
-          promtool_actions_subcommand: "rules"
-          promtool_actions_files: "promrules.yml"
-          promtool_actions_comment: true
-          promtool_actions_version: "2.36.0"
+      - uses: chrisdickinson/setup-yq@latest
+      - name: setup-promtool
+        run: |
+          url="https://github.com/prometheus/prometheus/releases/download/v${promtoolVersion}/prometheus-${promtoolVersion}.linux-amd64.tar.gz"
+
+          echo "Downloading Promtool v${promtoolVersion}"
+          curl -s -S -L -o /tmp/promtool_${promtoolVersion} ${url}
+          if [ "${?}" -ne 0 ]; then
+            echo "Failed to download Promtool v${promtoolVersion}"
+            exit 1
+          fi
+          echo "Successfully downloaded Promtool v${promtoolVersion}"
+
+          echo "Unzipping Promtool v${promtoolVersion}"
+          tar -zxf /tmp/promtool_${promtoolVersion} --strip-components=1 --directory /usr/local/bin &> /dev/null
+          if [ "${?}" -ne 0 ]; then
+            echo "Failed to unzip Promtool v${promtoolVersion}"
+            exit 1
+          fi
+          echo "Successfully unzipped Promtool v${promtoolVersion}"
+          
+      - name: promtool-lint
+        shell: bash
+        run: | 
+          make --always-make promtool-lint
+          echo "Exited with '$?'"

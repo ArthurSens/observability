@@ -8,7 +8,7 @@ kubescape:
 
 .PHONY: promtool-lint
 promtool-lint: promrules.yml
-	promtool check rules promrules.yml
+	$(shell) promtool check rules promrules.yml
 
 .PHONY: promrules.yml
 promrules.yml:
