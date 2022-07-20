@@ -29,7 +29,7 @@ You can verify that every alert has all the required labels, which are:
 * Annotations: `runbook_url` and `description`
 
 ```
-make lint/alert-severity
+make lint/alert-labels
 ```
 
 
