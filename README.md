@@ -4,15 +4,32 @@ Repository used to host a set of YAML files to be used as source of truth for ou
 
 ## Linters
 
+You can run all linters by running:
+
+```
+make lint
+```
+
+Or you can run them individually
+
 ### Prometheus alerts and recording rules
 
 You can verify if alerting rules are valid by running.
 
 ```
-make promtool-lint
+make lint/rules
 ```
 
 For every `PrometheusRule` YAML file inside the `manifest` folder, it will extract all the rules and run `promtool check rules` against it.
+
+### All alerts have severity label
+
+You can verify that every alert has the `severity` label set.
+
+```
+make lint/alert-severity
+```
+
 
 ## CI Roadmap
 
@@ -20,7 +37,6 @@ For every `PrometheusRule` YAML file inside the `manifest` folder, it will extra
     * Alertmanager config
     * YAML
 * Enforcers
-    * All alerts have severity
     * All alerts have description
     * All alerts with team label, should be one of: [`platform`, `ide`, `webapp`, `workspace`]
 * Integration tests
