@@ -13,6 +13,6 @@ RUN curl -LO https://github.com/prometheus/prometheus/releases/download/v${PROM_
     rm -rf prometheus-${PROM_VERSION}.linux-amd64/ && \
     rm -f prometheus-${PROM_VERSION}.linux-amd64.tar.gz
 
-RUN curl -fsSL https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 > yq && \
+RUN curl -fsSL https://github.com/mikefarah/yq/releases/download/v4.23.1/yq_linux_amd64 > yq && \
     chmod +x yq && \
     sudo mv yq /usr/bin/yq

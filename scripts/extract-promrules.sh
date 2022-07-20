@@ -3,9 +3,9 @@
 echo "groups:" > promrules.yml
 
 for file in $(find manifests -regex ".*\.y[a]?ml"); do
-    kind=$(yq r $file 'kind')
+    kind=$(yq '.kind' $file)
     if [[ $kind == "PrometheusRule" ]]; then
-      yq r $file 'spec.groups' >> promrules.yml
+      yq '.spec.groups' $file >> promrules.yml
     fi
 done
 
