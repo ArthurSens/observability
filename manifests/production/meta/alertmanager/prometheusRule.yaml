@@ -25,7 +25,7 @@ spec:
         max_over_time(alertmanager_config_last_reload_successful{job="alertmanager-main",namespace="monitoring-satellite"}[5m]) == 0
       for: 10m
       labels:
-        severiaaaty: critical
+        severity: critical
     - alert: AlertmanagerMembersInconsistent
       annotations:
         description: Alertmanager {{ $labels.namespace }}/{{ $labels.pod}} has only

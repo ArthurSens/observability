@@ -22,9 +22,11 @@ make lint/rules
 
 For every `PrometheusRule` YAML file inside the `manifest` folder, it will extract all the rules and run `promtool check rules` against it.
 
-### All alerts have severity label
+### All alerts have required labels and annocations
 
-You can verify that every alert has the `severity` label set.
+You can verify that every alert has all the required labels, which are:
+* Labels: `severity`
+* Annotations: `runbook_url` and `description`
 
 ```
 make lint/alert-severity
@@ -37,7 +39,6 @@ make lint/alert-severity
     * Alertmanager config
     * YAML
 * Enforcers
-    * All alerts have description
     * All alerts with team label, should be one of: [`platform`, `ide`, `webapp`, `workspace`]
 * Integration tests
     * Alertmanager routing to expected routes

@@ -12,8 +12,8 @@ lint: lint/rules lint/alert-severity
 lint/rules: promrules.yml
 	$(shell) promtool check rules promrules.yml
 
-lint/alert-severity:
-	scripts/linters/alert-severity.sh
+lint/alert-labels:
+	scripts/linters/alert-labels.sh
 
 .PHONY: promrules.yml
 promrules.yml:
